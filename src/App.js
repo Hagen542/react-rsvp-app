@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
-import './App.css';
-import GuestList from './components/GuestList';
-import Counter from './components/Counter';
+import React, { Component } from 'react'
+
+import './App.css'
+import GuestList from './components/GuestList'
+import Counter from './components/Counter'
 
 class App extends Component {
 
@@ -94,7 +95,8 @@ class App extends Component {
 
   getAttendingGuests = () =>
     this.state.guests.reduce(
-      (total, guest) => guest.isConfirmed ? total + 1 : total,
+      (total, guest) =>
+        guest.isConfirmed ? total + 1 : total,
       0
     )
   // getUnconfirmedGuests = () =>
@@ -130,10 +132,12 @@ class App extends Component {
               Hide those who haven't responded
             </label>
           </div>
+
           <Counter
             totalInvited={totalInvited}
             numberAttending={numberAttending}
             numberUnconfirmed={numberUnconfirmed} />
+
           <GuestList
             guests={this.state.guests}
             toggleConfirmationAt={this.toggleConfirmationAt}
@@ -142,10 +146,11 @@ class App extends Component {
             isFiltered={this.state.isFiltered}
             removeGuestAt={this.removeGuestAt}
             pendingGuest={this.state.pendingGuest} />
+
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
