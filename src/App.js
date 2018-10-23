@@ -6,6 +6,7 @@ class App extends Component {
 
   state = {
     isFiltered: false,
+    pendingGuest: '',
     guests: [
       {
         name: 'Treasure',
@@ -62,6 +63,24 @@ class App extends Component {
   toggleFilter = () =>
     this.setState({ isFiltered: !this.state.isFiltered })
 
+  handleNameInput = e =>
+    this.setState({ pendingGuest: e.target.value })
+
+  newGuestSubmitHandler = e => {
+    e.preventDefault();
+    this.setState({
+      guests: [
+        {
+          name: this.state.pendingGuest,
+          isConfirmed: false,
+          isEditing: false
+        },
+        ...this.state.guests
+      ],
+      pendingGuest: ''
+    })
+  }
+
   getTotalInvited = () => this.state.guests.length;
   // getAttendingGuests = () =>
   // getUnconfirmedGuests = () =>
@@ -72,8 +91,12 @@ class App extends Component {
         <header>
           <h1>RSVP</h1>
           <p>A Treehouse App</p>
-          <form>
-            <input type="text" value="Safia" placeholder="Invite Someone" />
+          <form onSubmit={this.newGuestSubmitHandler}>
+            <input
+              type="text"
+              value={this.state.pendingGuest}
+              placeholder="Invite Someone"
+              onChange={this.handleNameInput} />
             <button type="submit" name="submit" value="submit">Submit</button>
           </form>
         </header>
@@ -84,8 +107,8 @@ class App extends Component {
               <input
                 type="checkbox"
                 onChange={this.toggleFilter}
-                checked={this.state.isFiltered} /> 
-                Hide those who haven't responded
+                checked={this.state.isFiltered} />
+              Hide those who haven't responded
             </label>
           </div>
           <table className="counter">
@@ -108,8 +131,8 @@ class App extends Component {
             guests={this.state.guests}
             toggleConfirmationAt={this.toggleConfirmationAt}
             toggleEditingAt={this.toggleEditingAt}
-            setNameAt={this.setNameAt} 
-            isFiltered={this.state.isFiltered}/>
+            setNameAt={this.setNameAt}
+            isFiltered={this.state.isFiltered} />
         </div>
       </div>
     );
